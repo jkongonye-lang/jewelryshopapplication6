@@ -1,0 +1,16 @@
+# Configuration Supabase pour KK Jewelry
+# Copiez ce contenu dans votre fichier .env.local
+
+# URL de votre projet Supabase
+NEXT_PUBLIC_SUPABASE_URL=https://dhcadcfrthoyicpoqktf.supabase.co
+
+# Clé anonyme de votre projet Supabase
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_bJRxARRfUDL3PRqcCv0Y8w_Eydz8fWP
+
+# Configuration de l'application
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_SITE_NAME=KK Jewelry Shop
+
+# Configuration admin
+ADMIN_EMAIL=admin@kkjewelry.com
+ADMIN_PASSWORD=admin123
