@@ -1,11 +1,43 @@
 "use client"
 
+import { useAdminAuth } from "@/lib/auth/check-admin"
+import { Button } from "@/components/ui/button"
+import { LogOut } from "lucide-react"
+
 export default function AdminDashboardPage() {
+  const { isAdmin, isLoading, logout } = useAdminAuth()
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center">
+          <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600 mb-4"></div>
+          <p className="text-gray-600">Vérification de l'authentification...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (!isAdmin) {
+    return null // Redirection est gérée par le hook
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 p-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-2">KK Jewelry</h1>
-        <p className="text-center text-gray-600 mb-8">Administration</p>
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h1 className="text-4xl font-bold mb-2">KK Jewelry</h1>
+            <p className="text-gray-600">Administration</p>
+          </div>
+          <Button 
+            onClick={logout}
+            variant="outline"
+            className="gap-2"
+          >
+            <LogOut className="h-4 w-4" />
+            Déconnexion
+          </Button>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">

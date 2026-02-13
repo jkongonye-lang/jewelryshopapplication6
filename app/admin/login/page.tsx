@@ -21,8 +21,6 @@ export default function AdminLoginPage() {
     e.preventDefault()
     setIsLoading(true)
     setError("")
-    
-    console.log("🔍 Login attempt:", { email, password: "***" })
 
     try {
       const response = await fetch("/api/admin/login-direct", {
@@ -33,34 +31,20 @@ export default function AdminLoginPage() {
         body: JSON.stringify({ email, password }),
       })
 
-      console.log("📡 Fetch sent to:", "/api/admin/login-direct")
-
       const data = await response.json()
-      
-      console.log("📊 Response status:", response.status)
-      console.log("📄 Response data:", data)
 
       if (!response.ok) {
-        console.log("❌ Login failed:", data.error)
         throw new Error(data.error || "Email ou mot de passe incorrect")
       }
 
-      console.log("✅ Login successful:", data)
-      console.log("👤 User data:", data.user)
-
-      // Store admin session in localStorage
-      localStorage.setItem("admin_authenticated", "true")
-      localStorage.setItem("admin_user", JSON.stringify(data.user))
-      
-      console.log("💾 Session stored:", localStorage.getItem("admin_authenticated"))
+      // Store admin session in localStorage (consistent with check-admin.tsx)
+      localStorage.setItem("admin_session", JSON.stringify(data.user))
       
       // Petite attente avant redirection
       setTimeout(() => {
-        console.log("🔄 Redirecting to dashboard...")
-        window.location.href = "/admin/dashboard"
-      }, 500)
+        router.push("/admin/dashboard")
+      }, 300)
     } catch (err: any) {
-      console.log("❌ Login error:", err)
       setError(err.message || "Email ou mot de passe incorrect")
       setIsLoading(false)
     }
